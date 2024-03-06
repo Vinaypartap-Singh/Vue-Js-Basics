@@ -20,13 +20,78 @@
             height: 100vh;
             background-color: #f4f4f4;
         }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .list {
+            list-style: none;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 40px;
+            background-color: rgb(219, 219, 219);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #f4f4f4;
+            cursor: pointer;
+            transition: .3s ease-in-out all;
+        }
+
+        button:hover {
+            background-color: #ff8181;
+            color: white;
+            font-weight: bold;
+            transition: .3s ease-in-out all;
+        }
+
+        li.fav {
+            background-color: pink;
+        }
     </style>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
 <body>
     <div id="app">
-        <h1>{{ title }}</h1>
+        <div v-if="showBook">
+            <ul>
+                <li v-for="book in books" :class=" {fav: book.isFav} " class="list">
+                    {{book.title}} by {{book.author}}
+                    <a :href="book.url">{{book.title}} by {{book.author}}</a>
+                    <button @click="addToFav(book)" v-if="!book.isFav">Add To Favourite</button>
+                    <button @click="addToFav(book)" v-else>Remove From Favourite</button>
+                </li>
+
+            </ul>
+        </div>
+
+        <div v-else="!showBook">
+            <h1>No Book to SHow</h1>
+        </div>
+
+        <!-- <button @click="changeTitle('Rich Dad Poor Dad')">Change Title</button>
+        <button @click="age++">Increment</button>
+        <button @click="age--">Decrement</button> -->
+
+        <!-- <button @click="toggleShowBook">Toggle Book</button> -->
+        <!-- <div class="box" @mouseover="handleOver($event, 'Vinay')"></div> -->
     </div>
 </body>
 
